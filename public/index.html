@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="preload" as="image" href="/img/hero.jpg" />
+  <meta property="og:image" content="/img/hero.jpg" />
 </head>
 <body>
   <header class="topbar">
@@ -23,10 +25,12 @@
 
   <main>
     <section class="hero">
+      <div class="hero-inner">
       <p class="eyebrow">Starring Moose the Great Pyrenees</p>
       <h1>Good goods for<br />Great Pyrenees people.</h1>
       <p class="lede">Tees, hoodies and gear for Pyr owners, printed to order just for you. Free shipping on orders over $75.</p>
       <a class="btn" href="#shop">Shop the collection</a>
+      </div>
     </section>
 
     <section id="shop" class="shop" aria-label="Products">
