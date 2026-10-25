@@ -9,19 +9,29 @@ let cart = load();
 function load() {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY)) || {};
-    return Object.fromEntries(Object.entries(saved).filter(([id, q]) => findProduct(id) && q > 0));
+    return Object.fromEntries(Object.entries(saved).filter(([key, q]) => validKey(key) && q > 0));
   } catch {
     return {};
   }
 }
+// Cart keys are "productId" or "productId|size".
+function parseKey(key) {
+  const [id, size] = key.split("|");
+  return { id, size, product: findProduct(id) };
+}
+function validKey(key) {
+  const { size, product } = parseKey(key);
+  return product && (product.sizes ? product.sizes.includes(size) : !size);
+}
+
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch {}
 }
 
-function setQty(id, qty) {
+function setQty(key, qty) {
   qty = Math.max(0, Math.min(MAX_QTY, qty));
-  if (qty === 0) delete cart[id];
-  else cart[id] = qty;
+  if (qty === 0) delete cart[key];
+  else cart[key] = qty;
   save();
   renderCart();
 }
@@ -40,6 +50,9 @@ function renderGrid() {
           <p>${p.description}</p>
           <div class="card-foot">
             <span class="price">${formatPrice(p.price)}</span>
+            ${p.sizes ? `<select class="size" id="size-${p.id}" aria-label="Size for ${p.name}">
+              <option value="">Size</option>${p.sizes.map((s) => `<option>${s}</option>`).join("")}
+            </select>` : ""}
             <button class="btn btn-sm" data-add="${p.id}">Add to cart</button>
           </div>
         </div>
@@ -50,8 +63,8 @@ function renderGrid() {
 
 function renderCart() {
   const ids = Object.keys(cart);
-  const count = ids.reduce((n, id) => n + cart[id], 0);
-  const subtotal = ids.reduce((s, id) => s + findProduct(id).price * cart[id], 0);
+  const count = ids.reduce((n, key) => n + cart[key], 0);
+  const subtotal = ids.reduce((s, key) => s + parseKey(key).product.price * cart[key], 0);
 
   $("cart-count").textContent = count;
   $("empty").hidden = ids.length > 0;
@@ -64,13 +77,13 @@ function renderCart() {
 
   $("lines").innerHTML = ids
     .map((id) => {
-      const p = findProduct(id);
+      const { product: p, size } = parseKey(id);
       return `
       <li class="line">
         <img src="${p.image}" alt="" width="64" height="64" />
         <div class="line-info">
           <strong>${p.name}</strong>
-          <span>${formatPrice(p.price)}</span>
+          <span>${size ? `Size ${size} · ` : ""}${formatPrice(p.price)}</span>
           <div class="stepper" role="group" aria-label="Quantity for ${p.name}">
             <button data-dec="${id}" aria-label="Remove one">−</button>
             <span>${cart[id]}</span>
@@ -107,7 +120,12 @@ async function checkout() {
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: Object.entries(cart).map(([id, qty]) => ({ id, qty })) }),
+      body: JSON.stringify({
+        items: Object.entries(cart).map(([key, qty]) => {
+          const { id, size } = parseKey(key);
+          return size ? { id, size, qty } : { id, qty };
+        }),
+      }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.url) throw new Error(data.error || "Checkout failed");
@@ -119,10 +137,27 @@ async function checkout() {
   }
 }
 
+function addToCart(id) {
+  const product = findProduct(id);
+  let key = id;
+  if (product.sizes) {
+    const select = $(`size-${id}`);
+    if (!select.value) {
+      select.classList.add("needs-size");
+      select.focus();
+      return;
+    }
+    key = `${id}|${select.value}`;
+  }
+  setQty(key, (cart[key] || 0) + 1);
+  openCart();
+}
+
+document.addEventListener("change", (e) => e.target.classList?.remove("needs-size"));
 document.addEventListener("click", (e) => {
   const t = e.target.closest("button");
   if (!t) return;
-  if (t.dataset.add) { setQty(t.dataset.add, (cart[t.dataset.add] || 0) + 1); openCart(); }
+  if (t.dataset.add) addToCart(t.dataset.add);
   else if (t.dataset.inc) setQty(t.dataset.inc, cart[t.dataset.inc] + 1);
   else if (t.dataset.dec) setQty(t.dataset.dec, cart[t.dataset.dec] - 1);
   else if (t.dataset.remove) setQty(t.dataset.remove, 0);
