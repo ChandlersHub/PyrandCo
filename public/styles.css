@@ -58,7 +58,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: 1.1; marg
 .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .card-body h3 { font-size: 1.2rem; }
 .card-body p { margin: 0; color: var(--muted); font-size: 0.93rem; flex: 1; }
-.card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+.card-foot { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.card-foot .price { margin-right: auto; }
+.size { font: 500 0.9rem var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 8px 10px; }
+.size.needs-size { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15); }
 .price { font-weight: 600; font-size: 1.05rem; }
 
 .promises { max-width: 1100px; margin: 0 auto 64px; padding: 0 clamp(16px, 4vw, 48px); display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }

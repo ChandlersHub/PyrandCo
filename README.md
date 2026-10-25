@@ -5,7 +5,7 @@ Storefront for **pyrandco.com**: a static shop page with a cart, and Stripe Chec
 ## How it works
 
 - `public/` is the website (plain HTML, CSS and JS, no build step).
-- `public/products.js` is the catalog. Edit names, prices (in cents) and images here. Both the page and the checkout use this one file.
+- `public/products.js` is the catalog. Edit names, prices (in cents), sizes and images here. All items are print-on-demand. Both the page and the checkout use this one file.
 - `api/checkout.js` is a Vercel serverless function. It looks up real prices from the catalog, creates a Stripe Checkout Session, and sends the customer to Stripe's hosted payment page (card, Apple Pay, Google Pay, Link).
 - After paying, the customer lands on `/success`. Stripe emails the receipt; orders show up in the Stripe dashboard.
 

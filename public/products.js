@@ -2,51 +2,58 @@
 // the shop, and the checkout function imports it to look up real prices, so a
 // customer can never change what they pay from the browser.
 //
-// Prices are in cents (USD). Swap these placeholders for the real products.
+// Everything is print-on-demand (Printful / Printify), so there is no stock to
+// track. Prices are in cents (USD). Art is placeholder until the Moose designs
+// are ready. `sizes` makes the customer pick one before adding to cart.
+const APPAREL_SIZES = ["S", "M", "L", "XL", "2XL"];
+
 export const products = [
   {
-    id: "pyr-hoodie",
-    name: "Gentle Giant Hoodie",
-    description: "Heavyweight cotton hoodie with an embroidered Pyr crest.",
-    price: 5800,
-    image: "/img/hoodie.svg",
+    id: "moose-tee",
+    name: "Moose Line-Art Tee",
+    description: "Soft Bella+Canvas tee with Moose in clean line art.",
+    price: 3000,
+    image: "/img/tee.svg",
+    sizes: APPAREL_SIZES,
     tag: "Bestseller",
   },
   {
-    id: "pyr-mug",
-    name: "Night Watch Mug",
-    description: "15 oz stoneware mug for the 2 a.m. barking shift.",
-    price: 2400,
-    image: "/img/mug.svg",
-  },
-  {
-    id: "pyr-blanket",
-    name: "Fluff Season Throw",
-    description: "Sherpa-lined throw blanket. Fur-colored, conveniently.",
-    price: 6900,
-    image: "/img/blanket.svg",
+    id: "night-barker-hoodie",
+    name: "Professional Night Barker Hoodie",
+    description: "Heavyweight hoodie for the 2 a.m. patrol shift.",
+    price: 6000,
+    image: "/img/hoodie.svg",
+    sizes: APPAREL_SIZES,
     tag: "New",
   },
   {
-    id: "pyr-leash",
-    name: "Mountain Rope Leash",
-    description: "6 ft climbing-rope leash rated for 150 lb pullers.",
-    price: 3400,
-    image: "/img/leash.svg",
+    id: "pyr-dad-hat",
+    name: "Embroidered Dad Hat",
+    description: "Small embroidered Moose silhouette. One size, adjustable.",
+    price: 3200,
+    image: "/img/hat.svg",
   },
   {
-    id: "pyr-print",
-    name: "Pyr Portrait Print",
-    description: "Archival 11x14 art print of a Pyr on patrol.",
-    price: 2900,
-    image: "/img/print.svg",
+    id: "dog-hair-mug",
+    name: "Coffee and Dog Hair Mug",
+    description: "15 oz mug. \"Fueled by coffee and dog hair.\"",
+    price: 2000,
+    image: "/img/mug.svg",
   },
   {
-    id: "pyr-brush",
-    name: "Undercoat Rake",
-    description: "Double-row rake built for the double coat. You will need it.",
-    price: 1900,
-    image: "/img/brush.svg",
+    id: "pyr-bandana",
+    name: "Pyr and Co Dog Bandana",
+    description: "For the Pyr themselves. Tag us when they wear it.",
+    price: 2200,
+    image: "/img/bandana.svg",
+    sizes: ["M", "L", "XL"],
+  },
+  {
+    id: "pyr-on-board-decal",
+    name: "\"Pyr on Board\" Decal",
+    description: "Weatherproof vinyl decal for your car or cooler.",
+    price: 700,
+    image: "/img/decal.svg",
   },
 ];
 

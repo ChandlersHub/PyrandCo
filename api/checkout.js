@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { buildLineItems, shippingFor } from "../lib/checkout.js";
 
-// POST /api/checkout  body: { items: [{ id, qty }] }  ->  { url }
+// POST /api/checkout  body: { items: [{ id, size?, qty }] }  ->  { url }
 // Creates a Stripe Checkout Session and returns the hosted payment page URL.
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -35,13 +35,16 @@ export default async function handler(req, res) {
             display_name: shipping === 0 ? "Free shipping" : "Standard shipping",
             fixed_amount: { amount: shipping, currency: "usd" },
             delivery_estimate: {
-              minimum: { unit: "business_day", value: 3 },
-              maximum: { unit: "business_day", value: 7 },
+              minimum: { unit: "business_day", value: 5 },
+              maximum: { unit: "business_day", value: 12 },
             },
           },
         },
       ],
       allow_promotion_codes: true,
+      // The Stripe account is shared with Downtown Digital Den; this makes
+      // card statements show PYRANDCO so customers recognize the charge.
+      payment_intent_data: { statement_descriptor_suffix: "PYRANDCO" },
       phone_number_collection: { enabled: false },
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/?canceled=1`,
