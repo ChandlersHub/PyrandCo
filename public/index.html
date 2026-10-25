@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pyr and Co · Goods for Great Pyrenees people</title>
+  <meta name="description" content="Quality goods for Great Pyrenees lovers. Simple checkout, shipped across the US." />
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><img src="/img/logo.svg" alt="" width="32" height="32" />Pyr and Co</a>
+    <button class="cart-btn" id="open-cart" aria-label="Open cart">
+      Cart <span class="badge" id="cart-count">0</span>
+    </button>
+  </header>
+
+  <div class="notice" id="notice" hidden></div>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">For the gentle giants and the people who brush them</p>
+      <h1>Good goods for<br />Great Pyrenees people.</h1>
+      <p class="lede">Made to last, shipped fast, and free shipping on orders over $75.</p>
+      <a class="btn" href="#shop">Shop the collection</a>
+    </section>
+
+    <section id="shop" class="shop" aria-label="Products">
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="promises">
+      <div><strong>Secure checkout</strong><span>Card, Apple Pay and Google Pay through Stripe.</span></div>
+      <div><strong>Ships in 1–2 days</strong><span>Delivered in 3–7 business days across the US.</span></div>
+      <div><strong>30-day returns</strong><span>Not right? Send it back, no fuss.</span></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Pyr and Co</span>
+    <a href="mailto:hello@pyrandco.com">hello@pyrandco.com</a>
+  </footer>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Your cart</h2>
+      <button class="icon-btn" id="close-cart" aria-label="Close cart">×</button>
+    </div>
+    <ul class="lines" id="lines"></ul>
+    <p class="empty" id="empty">Your cart is empty.</p>
+    <div class="drawer-foot" id="foot">
+      <div class="row"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+      <p class="fine" id="ship-note"></p>
+      <button class="btn btn-block" id="checkout">Checkout</button>
+      <p class="fine center">You'll pay on Stripe's secure page.</p>
+    </div>
+  </aside>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
