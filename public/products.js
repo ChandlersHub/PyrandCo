@@ -3,8 +3,8 @@
 // customer can never change what they pay from the browser.
 //
 // Everything is print-on-demand (Printful / Printify), so there is no stock to
-// track. Prices are in cents (USD). Art is placeholder until the Moose designs
-// are ready. `sizes` makes the customer pick one before adding to cart.
+// track. Prices are in cents (USD). Product photos are Higgsfield mockups; swap
+// in the real Printful mockups once the Moose designs are final. `sizes` makes the customer pick one before adding to cart.
 const APPAREL_SIZES = ["S", "M", "L", "XL", "2XL"];
 
 export const products = [
@@ -13,7 +13,7 @@ export const products = [
     name: "Moose Line-Art Tee",
     description: "Soft Bella+Canvas tee with Moose in clean line art.",
     price: 3000,
-    image: "/img/tee.svg",
+    image: "/img/tee.jpg",
     sizes: APPAREL_SIZES,
     tag: "Bestseller",
   },
@@ -22,7 +22,7 @@ export const products = [
     name: "Professional Night Barker Hoodie",
     description: "Heavyweight hoodie for the 2 a.m. patrol shift.",
     price: 6000,
-    image: "/img/hoodie.svg",
+    image: "/img/hoodie.jpg",
     sizes: APPAREL_SIZES,
     tag: "New",
   },
@@ -31,21 +31,21 @@ export const products = [
     name: "Embroidered Dad Hat",
     description: "Small embroidered Moose silhouette. One size, adjustable.",
     price: 3200,
-    image: "/img/hat.svg",
+    image: "/img/hat.jpg",
   },
   {
     id: "dog-hair-mug",
     name: "Coffee and Dog Hair Mug",
     description: "15 oz mug. \"Fueled by coffee and dog hair.\"",
     price: 2000,
-    image: "/img/mug.svg",
+    image: "/img/mug.jpg",
   },
   {
     id: "pyr-bandana",
     name: "Pyr and Co Dog Bandana",
     description: "For the Pyr themselves. Tag us when they wear it.",
     price: 2200,
-    image: "/img/bandana.svg",
+    image: "/img/bandana.jpg",
     sizes: ["M", "L", "XL"],
   },
   {
@@ -53,7 +53,7 @@ export const products = [
     name: "\"Pyr on Board\" Decal",
     description: "Weatherproof vinyl decal for your car or cooler.",
     price: 700,
-    image: "/img/decal.svg",
+    image: "/img/decal.jpg",
   },
 ];
 
