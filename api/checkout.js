@@ -42,8 +42,18 @@ export default async function handler(req, res) {
         },
       ],
       allow_promotion_codes: true,
-      // The Stripe account is shared, so tag our sessions for the webhook.
+      // The Stripe account is shared, so tag our sessions for the webhook and
+      // show Pyr and Co (not the account's name) at the top of checkout.
       metadata: { store: "pyrandco" },
+      branding_settings: {
+        display_name: "Pyr and Co",
+        // Stripe has to fetch the icon, so skip it on local http dev.
+        ...(origin.startsWith("https://") ? { icon: { type: "url", url: `${origin}/img/logo.png` } } : {}),
+        button_color: "#2f5a46",
+        background_color: "#faf6ef",
+        border_style: "pill",
+        font_family: "inter",
+      },
       // The Stripe account is shared with Downtown Digital Den; this makes
       // card statements show PYRANDCO so customers recognize the charge.
       payment_intent_data: { statement_descriptor_suffix: "PYRANDCO" },
