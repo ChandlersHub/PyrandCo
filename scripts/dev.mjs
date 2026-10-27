@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { existsSync } from "node:fs";
 import checkout from "../api/checkout.js";
+import printFile from "../api/print-file.js";
 
 if (existsSync(".env")) process.loadEnvFile(".env");
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,12 @@ const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/cs
 http
   .createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
+    if (url.pathname === "/api/print-file") {
+      res.status = (code) => ((res.statusCode = code), res);
+      res.json = (obj) => { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify(obj)); };
+      res.send = (body) => res.end(body);
+      return printFile(req, res);
+    }
     if (url.pathname === "/api/checkout") {
       let raw = "";
       for await (const chunk of req) raw += chunk;

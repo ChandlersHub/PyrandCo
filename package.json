@@ -4,12 +4,15 @@
   "private": true,
   "description": "Pyr and Co storefront: static site + Stripe Checkout on Vercel",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "test": "node --test"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "stripe": "^23.0.1"
   }
 }

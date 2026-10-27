@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { buildLineItems, shippingFor } from "../lib/checkout.js";
 
-// POST /api/checkout  body: { items: [{ id, size?, qty }] }  ->  { url }
+// POST /api/checkout  body: { items: [{ id, options?, text?, qty }] }  ->  { url }
 // Creates a Stripe Checkout Session and returns the hosted payment page URL.
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -42,6 +42,8 @@ export default async function handler(req, res) {
         },
       ],
       allow_promotion_codes: true,
+      // The Stripe account is shared, so tag our sessions for the webhook.
+      metadata: { store: "pyrandco" },
       // The Stripe account is shared with Downtown Digital Den; this makes
       // card statements show PYRANDCO so customers recognize the charge.
       payment_intent_data: { statement_descriptor_suffix: "PYRANDCO" },
