@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "functions": {
+    "api/print-file.js": { "includeFiles": "public/fonts/**" }
+  }
 }
